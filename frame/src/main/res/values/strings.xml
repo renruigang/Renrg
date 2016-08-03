@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">My Frame</string>
+
+    <string name="refreshview_header_hint_normal">下拉刷新</string>
+    <string name="refreshview_header_hint_ready">释放立即刷新</string>
+    <string name="refreshview_header_hint_refreshing">正在刷新...</string>
+    <string name="refreshview_header_hint_success">刷新成功</string>
+    <string name="refreshview_header_hint_fail">刷新失败</string>
+
+    <string name="refreshview_footer_hint_normal">加载更多</string>
+    <string name="refreshview_footer_hint_ready">释放立即加载</string>
+    <string name="refreshview_footer_hint_success">加载成功</string>
+    <string name="refreshview_footer_hint_fail">加载失败</string>
+    <string name="refreshview_footer_hint_complete">已无更多数据</string>
+    <string name="refreshview_footer_hint_loading">正在加载...</string>
+</resources>

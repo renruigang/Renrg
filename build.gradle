@@ -1,0 +1,44 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    SDK_VERSION_CODE = 23
+    BUILDTOOLS_VERSION = "23.0.3"
+    //Support and Build tools version
+    SUPPORT_LIBRARY = "23.4.0"
+    //Support Libraries dependencies
+    supportDependencies = [
+            v4          : "com.android.support:support-v4:${SUPPORT_LIBRARY}",
+            appCompat   : "com.android.support:appcompat-v7:${SUPPORT_LIBRARY}",
+            recyclerview: "com.android.support:recyclerview-v7:${SUPPORT_LIBRARY}",
+            cardview    : "com.android.support:cardview-v7:${SUPPORT_LIBRARY}",
+            design      : "com.android.support:design:${SUPPORT_LIBRARY}",
+
+            gson        : "com.google.code.gson:gson:2.7",
+            glide       : "com.github.bumptech.glide:glide:3.7.0",
+            volley      : "com.github.bumptech.glide:volley-integration:1.4.0",
+            butterknife : "com.jakewharton:butterknife:8.2.1",
+            bk_compiler : 'com.jakewharton:butterknife-compiler:8.2.1',
+    ]
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
