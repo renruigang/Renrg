@@ -88,6 +88,7 @@ public class PhotosActivity extends AppCompatActivity implements ListImageDirPop
             return;
         }
         allImages.setCount(mPicsSize);
+        allImages.setDir("all");
         mImageFloders.add(0, allImages);
         /**
          * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
@@ -240,18 +241,7 @@ public class PhotosActivity extends AppCompatActivity implements ListImageDirPop
         });
         mAdapter.setOnPictureSelectedListener(new OnPictureSelectedListener() {
             @Override
-            public void onPictureSelected(CompoundButton buttonView, ImageView mImageView, String path, boolean checked) {
-                if (checked) {
-                    if (!ImageSelect.addSelectedImage(path)) {
-                        Toast.makeText(PhotosActivity.this, "最多选择" + ImageSelect.MAX_SIZE + "张图片", Toast.LENGTH_SHORT).show();
-                        buttonView.setChecked(false);
-                    } else {
-                        mImageView.setColorFilter(Color.parseColor("#4C000000"));
-                    }
-                } else {
-                    mImageView.setColorFilter(null);
-                    ImageSelect.mSelectedImage.remove(path);
-                }
+            public void onPictureSelected() {
                 refreshButton();
             }
         });

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import cn.renrg.photos.R;
 import cn.renrg.photos.listener.OnPictureSelectedListener;
@@ -16,6 +17,7 @@ import cn.renrg.photos.util.ViewHolder;
 public class ImageAdapter extends CommonAdapter<String> {
 
     private OnPictureSelectedListener onPictureSelectedListener;
+    private String colorFilter = "#4C000000";
 
     public ImageAdapter(Context context, List<String> mDatas, int itemLayoutId) {
         super(context, mDatas, itemLayoutId);
@@ -39,7 +41,7 @@ public class ImageAdapter extends CommonAdapter<String> {
          */
         if (ImageSelect.mSelectedImage.contains(item)) {
             mSelect.setChecked(true);
-            mImageView.setColorFilter(Color.parseColor("#4C000000"));
+            mImageView.setColorFilter(Color.parseColor(colorFilter));
         } else {
             mSelect.setChecked(false);
             mImageView.setColorFilter(null);
@@ -49,7 +51,18 @@ public class ImageAdapter extends CommonAdapter<String> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (buttonView.isPressed() && onPictureSelectedListener != null) {
-                    onPictureSelectedListener.onPictureSelected(buttonView, mImageView, item, isChecked);
+                    if (isChecked) {
+                        if (!ImageSelect.addSelectedImage(item)) {
+                            Toast.makeText(mContext, "最多选择" + ImageSelect.MAX_SIZE + "张图片", Toast.LENGTH_SHORT).show();
+                            buttonView.setChecked(false);
+                        } else {
+                            mImageView.setColorFilter(Color.parseColor(colorFilter));
+                        }
+                    } else {
+                        mImageView.setColorFilter(null);
+                        ImageSelect.mSelectedImage.remove(item);
+                    }
+                    onPictureSelectedListener.onPictureSelected();
                 }
             }
         });

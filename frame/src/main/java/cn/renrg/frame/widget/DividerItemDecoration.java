@@ -1,4 +1,4 @@
-package cn.renrg;
+package cn.renrg.frame.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

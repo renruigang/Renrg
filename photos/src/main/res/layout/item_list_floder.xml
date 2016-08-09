@@ -17,7 +17,7 @@
         android:paddingRight="12dp"
         android:paddingTop="9dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/default_picture" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -43,11 +43,13 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/id_dir_item_checked"
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="32dp"
-        android:src="@mipmap/dir_choose" />
+        android:src="@mipmap/dir_choose"
+        android:visibility="gone" />
 
 </RelativeLayout>

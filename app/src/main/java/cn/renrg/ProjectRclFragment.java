@@ -19,6 +19,7 @@ import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.renrg.frame.widget.DividerItemDecoration;
 
 /**
  * Created by Hello on 2015/8/27.

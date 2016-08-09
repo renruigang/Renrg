@@ -25,4 +25,5 @@ dependencies {
     compile supportDependencies.gson
     compile supportDependencies.glide
     compile supportDependencies.volley
+    compile supportDependencies.design
 }

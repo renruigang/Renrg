@@ -61,10 +61,9 @@ public class GalleryAdapter extends PagerAdapter {
 
     private View getImageView(String path) {
         PhotoView img = new PhotoView(context);
-        img.setBackgroundColor(0xff000000);
         img.setImageBitmap(convertToBitmap(path, width, height));
         img.setTag(path);
-        img.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        img.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         return img;
     }
 
@@ -72,7 +71,7 @@ public class GalleryAdapter extends PagerAdapter {
         BitmapFactory.Options opts = new BitmapFactory.Options();
         // 设置为ture只获取图片大小
         opts.inJustDecodeBounds = true;
-        opts.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        opts.inPreferredConfig = Bitmap.Config.RGB_565;
         // 返回为空
         BitmapFactory.decodeFile(path, opts);
         int width = opts.outWidth;
@@ -82,6 +81,9 @@ public class GalleryAdapter extends PagerAdapter {
             // 缩放
             scaleWidth = ((float) width) / w;
             scaleHeight = ((float) height) / h;
+        } else {
+            w = width;
+            h = height;
         }
         opts.inJustDecodeBounds = false;
         float scale = Math.max(scaleWidth, scaleHeight);

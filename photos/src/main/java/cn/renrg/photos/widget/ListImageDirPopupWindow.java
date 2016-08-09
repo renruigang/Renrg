@@ -13,6 +13,7 @@ import cn.renrg.photos.bean.ImageFloder;
 import cn.renrg.photos.util.ViewHolder;
 
 public class ListImageDirPopupWindow extends BasePopupWindowForListView<ImageFloder> {
+    private String selectDir = "all";
     private ListView mListDir;
 
     public ListImageDirPopupWindow(int width, int height, List<ImageFloder> datas, View convertView) {
@@ -28,6 +29,11 @@ public class ListImageDirPopupWindow extends BasePopupWindowForListView<ImageFlo
                 helper.setText(R.id.id_dir_item_name, item.getName());
                 helper.setText(R.id.id_dir_item_count, item.getCount() + "张");
                 helper.setImageByUrl(R.id.id_dir_item_image, item.getFirstImagePath());
+                if (selectDir.equals(item.getDir())) {
+                    helper.setVisibility(R.id.id_dir_item_checked, View.VISIBLE);
+                } else {
+                    helper.setVisibility(R.id.id_dir_item_checked, View.GONE);
+                }
             }
         });
     }
@@ -49,6 +55,7 @@ public class ListImageDirPopupWindow extends BasePopupWindowForListView<ImageFlo
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mImageDirSelected != null) {
                     mImageDirSelected.selected(mDatas.get(position));
+                    selectDir = mDatas.get(position).getDir();
                 }
             }
         });

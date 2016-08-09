@@ -68,6 +68,18 @@ public class ViewHolder {
      * 为TextView设置字符串
      *
      * @param viewId
+     * @param visibility
+     * @return
+     */
+    public ViewHolder setVisibility(int viewId, int visibility) {
+        getView(viewId).setVisibility(visibility);
+        return this;
+    }
+
+    /**
+     * 为TextView设置字符串
+     *
+     * @param viewId
      * @param text
      * @return
      */

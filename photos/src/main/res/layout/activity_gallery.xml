@@ -17,9 +17,9 @@
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dip"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="#e0000000">
+        android:background="#B2000000">
 
         <CheckBox
             android:id="@+id/pic_choice"
@@ -30,8 +30,7 @@
             android:layout_marginRight="16dp"
             android:text="@string/text_choice"
             android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:theme="@style/theme_checkbox" />
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
