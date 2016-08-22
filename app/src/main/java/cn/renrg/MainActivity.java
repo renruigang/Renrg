@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import cn.renrg.frame.FrameActivity;
 import cn.renrg.photos.PhotosActivity;
 import cn.renrg.photos.util.ImageSelect;
+import cn.renrg.widget.MenuDialog;
 
 public class MainActivity extends FrameActivity {
 
@@ -50,6 +51,9 @@ public class MainActivity extends FrameActivity {
             case R.id.create_new:
                 goToActivity(PhotosActivity.class);
                 break;
+            case R.id.menu_pop:
+                showMenuDialog();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -69,6 +73,17 @@ public class MainActivity extends FrameActivity {
     @Override
     protected void addViewListener() {
 
+    }
+
+    private void showMenuDialog() {
+        MenuDialog dialog = new MenuDialog(this);
+        dialog.setMenuItems(getResources().getStringArray(R.array.menu_array), new MenuDialog.OnMenuItemClickedListener() {
+            @Override
+            public void MenuItemClicked(int position) {
+                showToast("item" + position);
+            }
+        });
+        dialog.show();
     }
 
     @Override

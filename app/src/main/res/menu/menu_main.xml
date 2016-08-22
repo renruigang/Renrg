@@ -5,4 +5,8 @@
         android:id="@+id/create_new"
         android:title="@string/menu_create" />
 
+    <item
+        android:id="@+id/menu_pop"
+        android:title="@string/menu_pop" />
+
 </menu>

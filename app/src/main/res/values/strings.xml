@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Renrg</string>
     <string name="menu_create">选择图片</string>
+    <string name="menu_pop">弹出菜单</string>
     <string name="pro_one">壹</string>
     <string name="pro_two">贰</string>
     <string name="pro_three">叁</string>
@@ -8,4 +9,5 @@
     <string name="pro_ten">拾</string>
     <string name="pro_vip">VIP</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="cancel">取消</string>
 </resources>

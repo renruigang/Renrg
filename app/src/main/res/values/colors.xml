@@ -10,6 +10,7 @@
     <color name="divider">#B6B6B6</color>
     <color name="navigation">#DCDCDC</color>
     <color name="background">#FAFAFA</color>
+    <color name="transparent">#0000</color>
 
     <color name="color_rmb_1">#838F5D</color>
     <color name="color_rmb_5">#7C69A9</color>
