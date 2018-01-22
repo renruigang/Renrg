@@ -1,7 +1,9 @@
-package cn.renrg.frame;
+package cn.renrg.frame.base;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
@@ -32,25 +34,39 @@ public abstract class FrameFragment extends Fragment {
         ((FrameActivity) getActivity()).postFileData(url, params, callBack);
     }
 
-    public void showToast(String info) {
-        Toast.makeText(getActivity(), info, Toast.LENGTH_SHORT).show();
+    public void showToast(final String info) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), info, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    protected void goToActivity(Class activity) {
+    public void showToast(final int resId) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), resId, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    protected void skipToActivity(Class activity) {
         startActivity(new Intent(getActivity(), activity));
     }
 
-    protected void goToActivity(Class activity, Bundle bundle) {
+    protected void skipToActivity(Class activity, Bundle bundle) {
         Intent intent = new Intent(getActivity(), activity);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    protected void goToActivityForResult(Class activity, int code) {
+    protected void skipToActivityForResult(Class activity, int code) {
         startActivityForResult(new Intent(getActivity(), activity), code);
     }
 
-    protected void goToActivityForResult(Class activity, Bundle bundle, int code) {
+    protected void skipToActivityForResult(Class activity, Bundle bundle, int code) {
         Intent intent = new Intent(getActivity(), activity);
         intent.putExtras(bundle);
         startActivityForResult(intent, code);

@@ -5,26 +5,59 @@ import android.content.Context;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- *
+ * Created by renruigang on 2015/8/25.
  */
 public abstract class ResponseCallBack<T> {
 
     public Response.ErrorListener errorListener;
-    public Response.Listener<BaseModel> listener;
+    public Response.Listener<JsonObject> listener;
 
     public ResponseCallBack(final Context context) {
-        listener = new Response.Listener<BaseModel>() {
+        //默认返回Json标准格式status，data,msg三个字段，解析data数据
+        this(context, "data");
+    }
+
+    public ResponseCallBack(final Context context, boolean illegal) {
+        listener = new Response.Listener<JsonObject>() {
             @Override
-            public void onResponse(BaseModel response) {
-                if (response.isSuccess()) {//成功
-                    onSuccessResponse((T) new Gson().fromJson(response.getData(), getGenericType(0)), response.getErrorCode(), response.getErrorMsg());
-                } else {//失败
-                    onFailResponse(response.getErrorCode(), response.getErrorMsg());
+            public void onResponse(JsonObject response) {
+                BaseModel baseModel = new BaseModel(response);
+                if (baseModel.isSuccess()) {//成功
+                    onSuccessResponse((T) new Gson().fromJson(response, getGenericType(0)),
+                            baseModel.getStatus(), baseModel.getMsg());
+                } else if (baseModel.isNoData()) {//没有数据
+                    onNodataResponse(baseModel.getStatus(), baseModel.getMsg());
+                } else {
+                    onFailResponse(baseModel.getStatus(), baseModel.getMsg());
+                }
+            }
+        };
+        errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onFailResponse("V", VolleyErrorHelper.getMessage(error, context));
+            }
+        };
+    }
+
+    public ResponseCallBack(final Context context, final String key) {
+        listener = new Response.Listener<JsonObject>() {
+            @Override
+            public void onResponse(JsonObject response) {
+                BaseModel baseModel = new BaseModel(response, key);
+                if (baseModel.isSuccess()) {//成功
+                    onSuccessResponse((T) new Gson().fromJson(baseModel.getData(), getGenericType(0)),
+                            baseModel.getStatus(), baseModel.getMsg());
+                } else if (baseModel.isNoData()) {//没有数据
+                    onNodataResponse(baseModel.getStatus(), baseModel.getMsg());
+                } else {
+                    onFailResponse(baseModel.getStatus(), baseModel.getMsg());
                 }
             }
         };
@@ -39,6 +72,11 @@ public abstract class ResponseCallBack<T> {
     /**
      */
     public abstract void onSuccessResponse(T d, String code, String msg);
+
+    /**
+     */
+    public void onNodataResponse(String code, String msg) {
+    }
 
     /**
      */

@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.renrg.frame.FrameActivity;
+import cn.renrg.frame.base.FrameActivity;
 import cn.renrg.photos.PhotosActivity;
 import cn.renrg.photos.util.ImageSelect;
 import cn.renrg.widget.MenuDialog;
@@ -49,7 +49,7 @@ public class MainActivity extends FrameActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.create_new:
-                goToActivity(PhotosActivity.class);
+                skipToActivity(PhotosActivity.class);
                 break;
             case R.id.menu_pop:
                 showMenuDialog();

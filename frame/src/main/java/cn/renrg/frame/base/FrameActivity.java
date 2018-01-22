@@ -1,9 +1,12 @@
-package cn.renrg.frame;
+package cn.renrg.frame.base;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -15,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import cn.renrg.frame.FrameApplication;
 import cn.renrg.frame.volley.FileParams;
 import cn.renrg.frame.volley.FileRequest;
 import cn.renrg.frame.volley.GsonRequest;
@@ -63,29 +67,34 @@ public abstract class FrameActivity extends AppCompatActivity {
      */
     protected abstract void addViewListener();
 
-    protected void goToActivity(Class activity) {
+    protected void skipToActivity(Class activity) {
         startActivity(new Intent(this, activity));
     }
 
-    protected void goToActivity(Class activity, Bundle bundle) {
+    protected void skipToActivity(Class activity, Bundle bundle) {
         Intent intent = new Intent(this, activity);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    protected void goToActivityForResult(Class activity, int code) {
+    protected void skipToActivityForResult(Class activity, int code) {
         startActivityForResult(new Intent(this, activity), code);
     }
 
-    protected void goToActivityForResult(Class activity, Bundle bundle, int code) {
+    protected void skipToActivityForResult(Class activity, Bundle bundle, int code) {
         Intent intent = new Intent(this, activity);
         intent.putExtras(bundle);
         startActivityForResult(intent, code);
     }
 
     public String getData(String url, HashMap<String, String> params, ResponseCallBack callBack) {
-        params = params != null ? params : new HashMap<String, String>();
-        final String api_url = url + "?" + getParamsToUrl(params);
+        String api_url = url;
+        if (params != null) {
+            api_url = url + "?" + getParamsToUrl(params);
+        }
+        if (loggable) {
+            Log.e("GetUrl", api_url);
+        }
         GsonRequest gsonRequest = new GsonRequest(api_url, callBack);
         gsonRequest.setShouldCache(false);
         addToRequestQueue(gsonRequest);
@@ -93,8 +102,13 @@ public abstract class FrameActivity extends AppCompatActivity {
     }
 
     public String getData(String url, HashMap<String, String> params, boolean isCache, ResponseCallBack callBack) {
-        params = params != null ? params : new HashMap<String, String>();
-        final String api_url = url + "?" + getParamsToUrl(params);
+        String api_url = url;
+        if (params != null) {
+            api_url = url + "?" + getParamsToUrl(params);
+        }
+        if (loggable) {
+            Log.e("GetUrl", api_url);
+        }
         GsonRequest gsonRequest = new GsonRequest(api_url, callBack);
         gsonRequest.setShouldCache(isCache);
         addToRequestQueue(gsonRequest);
@@ -155,8 +169,23 @@ public abstract class FrameActivity extends AppCompatActivity {
         return result.toString();
     }
 
-    protected void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    /*防止其他线程调用Toast出错*/
+    protected void showToast(final String msg) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(FrameActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void showToast(final int resId) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(FrameActivity.this, resId, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

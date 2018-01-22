@@ -19,9 +19,8 @@ import android.widget.LinearLayout;
 import cn.renrg.frame.R;
 
 /**
- * custom ratingbaar
- * Created by Eminem Lu on 11/3/16.
- * Email arjinmc@hotmail.com
+ * Created by renruigang Lu on 11/3/16.
+ * 打分条
  */
 public class SuperRatingBar extends LinearLayout {
 

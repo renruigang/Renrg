@@ -1,7 +1,6 @@
 package cn.renrg;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,14 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.renrg.frame.widget.DividerItemDecoration;
+import cn.renrg.frame.widget.DividerItem;
 
 /**
  * Created by Hello on 2015/8/27.
@@ -137,7 +134,7 @@ public class ProjectRclFragment extends Fragment {
     private void initView() {
         projectAdapter = new ProjectRclAdapter(getActivity(), new ArrayList<String>());
         projectList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
-        projectList.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        projectList.addItemDecoration(new DividerItem(getActivity(), LinearLayoutManager.VERTICAL));
         projectList.setAdapter(projectAdapter);
     }
 }

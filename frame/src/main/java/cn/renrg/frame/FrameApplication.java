@@ -9,27 +9,21 @@ import com.android.volley.toolbox.Volley;
 import java.util.Stack;
 
 /**
- * Created by Hello on 2015/8/18.
+ * Created by renruigang on 2015/8/18.
  */
 public class FrameApplication extends Application {
 
-    private static FrameApplication frameApplication;
     private Stack<Activity> activityStack = new Stack<>();
     private RequestQueue mRequestQueue;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        frameApplication = this;
     }
 
     public void exitApplication() {
         clearStackActivity();
         System.exit(0);
-    }
-
-    public static FrameApplication getInstance() {
-        return frameApplication;
     }
 
     public void addStackActivity(Activity context) {

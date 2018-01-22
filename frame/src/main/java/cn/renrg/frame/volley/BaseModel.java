@@ -1,48 +1,62 @@
 package cn.renrg.frame.volley;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
+/**
+ * Created by renruigang on 2015/8/25.
+ */
 public class BaseModel {
+
+    //0-没有数据，1-成功，-9-登录过期，-1错误
     private String status;
-    private JsonElement result;
+    private JsonElement data;
+    public String msg;
 
-    public JsonElement getData() {
-        return result;
+    public BaseModel(JsonObject jsonObject, String key) {
+        status = jsonObject.get("status").toString().replace("\"", "");
+        msg = jsonObject.get("msg").toString().replace("\"", "");
+        data = jsonObject.get(key);
     }
 
-    public String describe;
-
-    public String getErrorCode() {
-        return status;
+    public BaseModel(JsonObject jsonObject) {
+        status = jsonObject.get("status").toString().replace("\"", "");
+        msg = jsonObject.get("msg").toString().replace("\"", "");
     }
 
-    public String getErrorMsg() {
-        return describe;
-    }
-
-
-    /**
-     *
-     */
     public boolean isSuccess() {
-        if ("0".equals(status)) {
-            return true;
-        }
-        return false;
+        return "1".equals(status);
     }
 
     public boolean isNoData() {
-        if ("2".equals(status)) {
-            return true;
-        }
-        return false;
+        return "0".equals(status);
     }
 
-    public boolean isOutToken() {
-        if ("F00005".equals(status)) {
-            return true;
-        }
-        return false;
+    public boolean isError() {
+        return !"1".equals(status) && !"0".equals(status);
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public JsonElement getData() {
+        return data;
+    }
+
+    public void setData(JsonElement data) {
+        this.data = data;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }

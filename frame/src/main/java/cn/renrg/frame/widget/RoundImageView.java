@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.ImageView;
 
 import cn.renrg.frame.R;
 
@@ -25,7 +24,7 @@ import cn.renrg.frame.R;
  * app:borderRadius="20dp"
  * app:type="round"
  */
-public class RoundImageView extends ImageView {
+public class RoundImageView extends android.support.v7.widget.AppCompatImageView {
     /**
      * 图片的类型，圆形or圆角
      */

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--BannerView-->
+    <color name="color_point_selected">#2196F3</color>
+    <color name="color_point_normal">#59708B</color>
+</resources>
